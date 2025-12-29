@@ -6,9 +6,11 @@ from centrometal_web_boiler.WebBoilerDeviceCollection import WebBoilerParameter
 
 
 class WebBoilerDeviceTypeSensor(WebBoilerGenericSensor):
+    """Expose boiler type (peltec2, cmpelet, biotec, biopl, etc.)."""
+
     @property
     def available(self):
-        """Return the availablity of the sensor."""
+        """Device type is static, not tied to websocket state."""
         return True
 
     @staticmethod
@@ -16,13 +18,12 @@ class WebBoilerDeviceTypeSensor(WebBoilerGenericSensor):
         parameter = WebBoilerParameter()
         parameter["name"] = "Device_Type"
         parameter["value"] = device["type"]
-        entities = []
-        entities.append(
+        entities: list[SensorEntity] = [
             WebBoilerDeviceTypeSensor(
                 hass,
                 device,
                 [None, "mdi:star-circle", None, "Device Type"],
                 parameter,
             )
-        )
+        ]
         return entities

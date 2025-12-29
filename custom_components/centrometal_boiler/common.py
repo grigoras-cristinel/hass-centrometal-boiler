@@ -8,14 +8,12 @@ from datetime import datetime
 def create_device_info(device) -> dict:
     param_power = device.get_parameter("B_sng")
     param_fw_ver = device.get_parameter("B_VER")
-    param_wifi_ver = device.get_parameter("B_WifiVER")
-    power = param_power["value"] or "?"
-    firmware_ver = param_fw_ver["value"] or "?"
-    wifi_ver = param_wifi_ver["value"] or "?"
+    power = param_power["value"] or "None"
+    firmware_ver = param_fw_ver["value"] or "None"
     model = device["product"] + " " + power
     serial = device["serial"]
     name = "Centrometal Boiler " + model + " " + serial
-    sw_version = firmware_ver + " Wifi:" + wifi_ver
+    sw_version = firmware_ver
     return {
         "identifiers": {
             # Serial numbers are unique identifiers within a specific domain
